@@ -1,19 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Devkoes.ReleaseManager.Discovery.Model
 {
-    public class PackageItem
+    public class AssemblyReference : FileBase
     {
-        public string Name { get; private set; }
         public string VersionText { get; private set; }
         public Version Version { get; }
 
-        public PackageItem(
-            string name,
-            string versionText)
+        public AssemblyReference(string absoluteFilePath, string versionText) :base(absoluteFilePath)
         {
-            Name = name;
             VersionText = versionText;
+
+            Trace.WriteLine($"AssemblyReference created {ToString()}");
         }
 
         public override string ToString()

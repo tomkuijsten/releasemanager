@@ -10,7 +10,7 @@ namespace Devkoes.ReleaseManager.Discovery.Model
             string absolutePath,
             IEnumerable<PackageItem> items) : base(absolutePath)
         {
-            this.Items = items;
+            Items = items;
         }
     }
 }

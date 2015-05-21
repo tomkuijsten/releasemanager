@@ -19,9 +19,8 @@ namespace Devkoes.ReleaseManager.Discovery
             return new Project(
                 absoluteProjPath,
                 NugetSpecDiscovery.Default.Discover(absoluteProjPath),
-                NugetPackageDiscovery.Default.Discover(absoluteFolder));
+                NugetPackageDiscovery.Default.Discover(absoluteFolder),
+                AssemblyReferenceDiscovery.Default.Discover(absoluteProjPath));
         }
-
-
     }
 }

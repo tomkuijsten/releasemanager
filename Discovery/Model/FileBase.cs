@@ -17,7 +17,7 @@ namespace Devkoes.ReleaseManager.Discovery.Model
 
         public override string ToString()
         {
-            return $"{Name},{AbsoluteFolder}";
+            return $"{Name}, {AbsoluteFolder}";
         }
     }
 }

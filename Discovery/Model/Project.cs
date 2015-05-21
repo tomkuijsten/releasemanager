@@ -1,4 +1,6 @@
-﻿namespace Devkoes.ReleaseManager.Discovery.Model
+﻿using System.Collections.Generic;
+
+namespace Devkoes.ReleaseManager.Discovery.Model
 {
     public class Project : FileBase
     {
@@ -6,13 +8,17 @@
 
         public Nuspec Nuspec { get; private set; }
 
+        public IEnumerable<AssemblyReference> References { get; private set; }
+
         public Project(
             string absolutePath, 
             Nuspec nuspec,
-            PackageConfig packageConfig) : base(absolutePath)
+            PackageConfig packageConfig,
+            IEnumerable<AssemblyReference> references) : base(absolutePath)
         {
-            this.Nuspec = nuspec;
-            this.PackageConfig = packageConfig;
+            Nuspec = nuspec;
+            PackageConfig = packageConfig;
+            References = references;
         }
     }
 }

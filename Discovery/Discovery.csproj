@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyReferenceDiscovery.cs" />
+    <Compile Include="Model\AssemblyReference.cs" />
     <Compile Include="Model\Wix.cs" />
     <Compile Include="Model\WixFileReference.cs" />
     <Compile Include="Model\FileBase.cs" />
