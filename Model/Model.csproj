@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83A4BC9A-4D7A-4B3D-8E4D-58B87184451C}</ProjectGuid>
+    <ProjectGuid>{214E6F10-EFC5-473C-8F7D-C744046113C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Devkoes.ReleaseManager.Discovery</RootNamespace>
-    <AssemblyName>Devkoes.ReleaseManager.Discovery</AssemblyName>
+    <RootNamespace>Devkoes.ReleaseManager.Model</RootNamespace>
+    <AssemblyName>Devkoes.ReleaseManager.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,29 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyReferenceDiscovery.cs" />
-    <Compile Include="Model\AssemblyReference.cs" />
-    <Compile Include="Model\ReferenceOverviewItem.cs" />
-    <Compile Include="Model\Wix.cs" />
-    <Compile Include="Model\WixFileReference.cs" />
-    <Compile Include="Model\FileBase.cs" />
-    <Compile Include="Model\Nuspec.cs" />
-    <Compile Include="Model\PackageConfig.cs" />
-    <Compile Include="Model\PackageItem.cs" />
-    <Compile Include="Model\Project.cs" />
-    <Compile Include="Model\Solution.cs" />
-    <Compile Include="NugetPackageDiscovery.cs" />
-    <Compile Include="NugetSpecDiscovery.cs" />
-    <Compile Include="ProjectDiscovery.cs" />
-    <Compile Include="SolutionDiscovery.cs" />
+    <Compile Include="EnvironmentVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WixDiscovery.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{214e6f10-efc5-473c-8f7d-c744046113c1}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

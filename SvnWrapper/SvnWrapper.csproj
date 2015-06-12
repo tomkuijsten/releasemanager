@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83A4BC9A-4D7A-4B3D-8E4D-58B87184451C}</ProjectGuid>
+    <ProjectGuid>{25C5B85F-E4AA-4330-8F1D-49806E138E27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Devkoes.ReleaseManager.Discovery</RootNamespace>
-    <AssemblyName>Devkoes.ReleaseManager.Discovery</AssemblyName>
+    <RootNamespace>Devkoes.ReleaseManager.SvnWrapper</RootNamespace>
+    <AssemblyName>Devkoes.ReleaseManager.SvnWrapper</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpSvn, Version=1.8993.3659.8, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=AMD64">
+      <HintPath>..\packages\SharpSvn.1.9-x64.1.8993.3659.8\lib\net40\SharpSvn.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpSvn.UI, Version=1.8993.3659.8, Culture=neutral, PublicKeyToken=33789aa53ca44aa9, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpSvn.1.9-x64.1.8993.3659.8\lib\net40\SharpSvn.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,29 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyReferenceDiscovery.cs" />
-    <Compile Include="Model\AssemblyReference.cs" />
-    <Compile Include="Model\ReferenceOverviewItem.cs" />
-    <Compile Include="Model\Wix.cs" />
-    <Compile Include="Model\WixFileReference.cs" />
-    <Compile Include="Model\FileBase.cs" />
-    <Compile Include="Model\Nuspec.cs" />
-    <Compile Include="Model\PackageConfig.cs" />
-    <Compile Include="Model\PackageItem.cs" />
-    <Compile Include="Model\Project.cs" />
-    <Compile Include="Model\Solution.cs" />
-    <Compile Include="NugetPackageDiscovery.cs" />
-    <Compile Include="NugetSpecDiscovery.cs" />
-    <Compile Include="ProjectDiscovery.cs" />
-    <Compile Include="SolutionDiscovery.cs" />
+    <Compile Include="Merge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WixDiscovery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{214e6f10-efc5-473c-8f7d-c744046113c1}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

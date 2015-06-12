@@ -9,13 +9,11 @@ namespace Devkoes.ReleaseManager.Discovery.Tests
         [TestMethod]
         public void Discover()
         {
-            var x = new SolutionDiscovery();
-
-            var solutions = x.Discover(@"c:\_projects\Portal");
+            var solutions = SolutionDiscovery.Default.Discover(@"c:\_projects\Portal");
 
             foreach (var s in solutions)
             {
-                x.DiscoverDetails(s);
+                SolutionDiscovery.Default.DiscoverDetails(s);
             }
 
             Assert.IsTrue(solutions.Any());

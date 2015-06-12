@@ -1,15 +1,21 @@
 ﻿using Devkoes.ReleaseManager.Discovery.Model;
+using Devkoes.ReleaseManager.Model;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System;
 
 namespace Devkoes.ReleaseManager.Discovery
 {
     public class SolutionDiscovery
     {
         private readonly Regex _projRegex = new Regex("^Project.*?,.*?\"(?<projectPath>.*?proj)\"", RegexOptions.Multiline);
+
+        public static SolutionDiscovery Default { get; } = new SolutionDiscovery();
+        private SolutionDiscovery() { }
+
 
         public IEnumerable<Solution> Discover(string path)
         {
@@ -20,6 +26,11 @@ namespace Devkoes.ReleaseManager.Discovery
 
         public void DiscoverDetails(Solution sol)
         {
+            if (sol == null)
+            {
+                return;
+            }
+
             DiscoverSolutionDetails(sol);
             DiscoverProjectDetails(sol);
         }
@@ -28,7 +39,7 @@ namespace Devkoes.ReleaseManager.Discovery
         {
             var wixDisc = new WixDiscovery();
             var installers = wixDisc.Discover(sol.AbsoluteFolder);
-            if(!installers.Any())
+            if (!installers.Any())
             {
                 return;
             }
@@ -59,7 +70,7 @@ namespace Devkoes.ReleaseManager.Discovery
                 slns.Add(CreateSolution(file));
             }
 
-            foreach(var dir in Directory.GetDirectories(absolutePath))
+            foreach (var dir in Directory.GetDirectories(absolutePath))
             {
                 slns.AddRange(GetSolution(dir));
             }
@@ -72,10 +83,24 @@ namespace Devkoes.ReleaseManager.Discovery
             Trace.WriteLine($"Solution found: {absoluteFilePath}");
 
             string buildScriptAbsolutePath = GetBuildScriptAbsolutePath(absoluteFilePath);
+            string absolutePathRelease = GetReleaseCounterPart(absoluteFilePath);
+            string absoluteFolderRelease = GetAbsoluteFolderRelease(absolutePathRelease);
 
             return new Solution(
                 absoluteFilePath,
-                buildScriptAbsolutePath);
+                buildScriptAbsolutePath,
+                absolutePathRelease,
+                absoluteFolderRelease);
+        }
+
+        private string GetAbsoluteFolderRelease(string absolutePathRelease)
+        {
+            if(string.IsNullOrWhiteSpace(absolutePathRelease))
+            {
+                return null;
+            }
+
+            return Path.GetDirectoryName(absolutePathRelease);
         }
 
         private string GetBuildScriptAbsolutePath(string absoluteSolutionFilePath)
@@ -83,9 +108,25 @@ namespace Devkoes.ReleaseManager.Discovery
             string slnFileName = Path.GetFileNameWithoutExtension(absoluteSolutionFilePath);
             string buildConfig = string.Concat(slnFileName, ".build.xml");
             string buildConfigAbsolutePath = Path.Combine(Path.GetDirectoryName(absoluteSolutionFilePath), buildConfig);
-            if(File.Exists(buildConfigAbsolutePath))
+            if (File.Exists(buildConfigAbsolutePath))
             {
                 return buildConfigAbsolutePath;
+            }
+
+            return null;
+        }
+
+        private string GetReleaseCounterPart(string absoluteSolutionFilePath)
+        {
+            if (!absoluteSolutionFilePath.StartsWith(EnvironmentVariables.ProjectSourcePath))
+            {
+                return null;
+            }
+
+            var releasePath = absoluteSolutionFilePath.Replace(EnvironmentVariables.ProjectSourcePath, EnvironmentVariables.ReleaseSourcePath);
+            if (File.Exists(releasePath))
+            {
+                return releasePath;
             }
 
             return null;

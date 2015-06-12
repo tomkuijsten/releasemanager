@@ -7,41 +7,20 @@ namespace Devkoes.ReleaseManager.Discovery.Model
     {
         public IList<Project> Projects { get; private set; }
         public string BuildScriptAbsolutePath { get; set; }
+        public string AbsolutePathRelease { get; set; }
+        public string AbsoluteFolderRelease { get; set; }
         public Wix Installer { get; set; }
 
         public Solution(
             string absolutePath, 
-            string buildScriptAbsolutePath) : this(absolutePath, buildScriptAbsolutePath, null, null)
-        {
-
-        }
-
-        public Solution(
-            string absolutePath,
             string buildScriptAbsolutePath,
-            Wix installer) : this(absolutePath, buildScriptAbsolutePath, installer, null)
-        {
-
-        }
-
-        public Solution(
-            string absolutePath,
-            string buildScriptAbsolutePath,
-            IEnumerable<Project> projects) : this(absolutePath, buildScriptAbsolutePath, null, projects)
-        {
-
-        }
-
-        public Solution(
-            string absolutePath,
-            string buildScriptAbsolutePath,
-            Wix installer,
-            IEnumerable<Project> projects) : base(absolutePath)
+            string absolutePathRelease,
+            string absoluteFolderRelease) : base(absolutePath)
         {
             BuildScriptAbsolutePath = buildScriptAbsolutePath;
-            Projects = new List<Project>(projects ?? Enumerable.Empty<Project>());
-            Installer = installer;
-
+            AbsolutePathRelease = absolutePathRelease;
+            AbsoluteFolderRelease = absoluteFolderRelease;
+            Projects = new List<Project>();
         }
 
         public int Compare(Solution x, Solution y)

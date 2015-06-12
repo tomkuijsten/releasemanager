@@ -13,8 +13,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -28,11 +29,27 @@
                          Controls:TextBoxHelper.Watermark="Search..."
                          Controls:TextBoxHelper.ButtonCommand="{Binding SearchSolutionCommand, Mode=OneWay}"
                          Style="{DynamicResource SearchMetroTextBox}" />
-            
-            <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"  Margin="5" Grid.Row="2" MinWidth="200" ItemsSource="{Binding Solutions}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedSolution}" />
-            
-        <Button Grid.Row="3" Margin="5" Content="Build" Command="{Binding BuildSolution}" />
+
+            <ListBox ScrollViewer.VerticalScrollBarVisibility="Visible"  Margin="5" Grid.Row="2" MinWidth="200" 
+                     ItemsSource="{Binding Solutions}" 
+                     DisplayMemberPath="Name" 
+                     SelectedItem="{Binding SelectedSolution}" />
+
+            <Button Grid.Row="3" Margin="5" Content="Build" Command="{Binding BuildSolution}" />
         </Grid>
-        <ItemsControl ItemsSource="{Binding ConsoleOutput}"  Grid.Column="1" Margin="5"/>
+
+        <ScrollViewer Grid.Column="1" >
+            <ItemsControl ItemsSource="{Binding SelectedSolution.Projects}" Margin="5" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DataGrid ItemsSource="{Binding ReferenceOverview}" Margin="5" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+
+
+        <ItemsControl ItemsSource="{Binding ConsoleOutput}"  Grid.Column="2" Margin="5"/>
     </Grid>
 </Controls:MetroWindow>

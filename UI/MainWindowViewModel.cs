@@ -1,6 +1,7 @@
 ﻿using Devkoes.ReleaseManager.Discovery;
 using Devkoes.ReleaseManager.Discovery.Model;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -62,17 +63,30 @@ namespace UI
             solView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             solView.Filter = FilterSolutions;
 
-            foreach (var s in new SolutionDiscovery().Discover(@"c:\_projects"))
+            foreach (var s in SolutionDiscovery.Default.Discover(@"c:\_projects"))
             {
                 _allSolutions.Add(s);
                 Solutions.Add(s);
             }
         }
 
+        public IEnumerable<ReferenceOverviewItem> ProjectDetails
+        {
+            get
+            {
+                if (_selectedSolution?.Projects?.FirstOrDefault() == null)
+                {
+                    return null;
+                }
+
+                return _selectedSolution.Projects.First().ReferenceOverview;
+            }
+        }
+
         private bool FilterSolutions(object obj)
         {
             var sol = obj as Solution;
-            if(sol == null)
+            if (sol == null)
             {
                 return false;
             }
@@ -119,7 +133,9 @@ namespace UI
             set
             {
                 _selectedSolution = value;
+                SolutionDiscovery.Default.DiscoverDetails(_selectedSolution);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedSolution"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ProjectDetails"));
             }
         }
 

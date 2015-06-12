@@ -10,15 +10,19 @@ namespace Devkoes.ReleaseManager.Discovery.Model
 
         public IEnumerable<AssemblyReference> References { get; private set; }
 
+        public IEnumerable<ReferenceOverviewItem> ReferenceOverview { get; private set; }
+
         public Project(
             string absolutePath, 
             Nuspec nuspec,
             PackageConfig packageConfig,
-            IEnumerable<AssemblyReference> references) : base(absolutePath)
+            IEnumerable<AssemblyReference> references,
+            IEnumerable<ReferenceOverviewItem> refOverview) : base(absolutePath)
         {
             Nuspec = nuspec;
             PackageConfig = packageConfig;
             References = references;
+            ReferenceOverview = refOverview;
         }
     }
 }
